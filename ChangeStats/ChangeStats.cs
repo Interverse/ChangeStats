@@ -204,56 +204,105 @@ namespace ChangeStats {
             }
 
             player.SetBuff(156, 30, true);
-
-            Main.ServerSideCharacter = true;
-            NetMessage.SendData(7, player.Index, -1, null, 0, 0.0f, 0.0f, 0.0f, 0, 0, 0);
-            player.IgnoreSSCPackets = true;
-            for (int index1 = 0; index1 < NetItem.MaxInventory; ++index1) {
-                if (index1 < NetItem.InventorySlots) {
-                    (player.TPlayer.inventory[index1]).netDefaults(0);
-                } else if (index1 < NetItem.InventorySlots + NetItem.ArmorSlots) {
-                    int index2 = index1 - NetItem.InventorySlots;
-                    (player.TPlayer.armor[index2]).netDefaults(0);
-                } else if (index1 < NetItem.InventorySlots + NetItem.ArmorSlots + NetItem.DyeSlots) {
-                    int index2 = index1 - (NetItem.InventorySlots + NetItem.ArmorSlots);
-                    (player.TPlayer.dye[index2]).netDefaults(0);
-                } else if (index1 < NetItem.InventorySlots + NetItem.ArmorSlots + NetItem.DyeSlots + NetItem.MiscEquipSlots) {
-                    int index2 = index1 - (NetItem.InventorySlots + NetItem.ArmorSlots + NetItem.DyeSlots);
-                    (player.TPlayer.miscEquips[index2]).netDefaults(0);
-                } else if (index1 < NetItem.InventorySlots + NetItem.ArmorSlots + NetItem.DyeSlots + NetItem.MiscEquipSlots + NetItem.MiscDyeSlots) {
-                    int index2 = index1 - (NetItem.InventorySlots + NetItem.ArmorSlots + NetItem.DyeSlots + NetItem.MiscEquipSlots);
-                    (player.TPlayer.miscDyes[index2]).netDefaults(0);
+            
+            if (isSSC) {
+                for (int index1 = 0; index1 < NetItem.MaxInventory; ++index1) {
+                    if (index1 < NetItem.InventorySlots) {
+                        (player.TPlayer.inventory[index1]).netDefaults(0);
+                    } else if (index1 < NetItem.InventorySlots + NetItem.ArmorSlots) {
+                        int index2 = index1 - NetItem.InventorySlots;
+                        (player.TPlayer.armor[index2]).netDefaults(0);
+                    } else if (index1 < NetItem.InventorySlots + NetItem.ArmorSlots + NetItem.DyeSlots) {
+                        int index2 = index1 - (NetItem.InventorySlots + NetItem.ArmorSlots);
+                        (player.TPlayer.dye[index2]).netDefaults(0);
+                    } else if (index1 < NetItem.InventorySlots + NetItem.ArmorSlots + NetItem.DyeSlots + NetItem.MiscEquipSlots) {
+                        int index2 = index1 - (NetItem.InventorySlots + NetItem.ArmorSlots + NetItem.DyeSlots);
+                        (player.TPlayer.miscEquips[index2]).netDefaults(0);
+                    } else if (index1 < NetItem.InventorySlots + NetItem.ArmorSlots + NetItem.DyeSlots + NetItem.MiscEquipSlots + NetItem.MiscDyeSlots) {
+                        int index2 = index1 - (NetItem.InventorySlots + NetItem.ArmorSlots + NetItem.DyeSlots + NetItem.MiscEquipSlots);
+                        (player.TPlayer.miscDyes[index2]).netDefaults(0);
+                    }
                 }
-            }
-            int index3 = 0;
-            for (int index1 = 0; index1 < NetItem.InventorySlots; ++index1) {
-                NetMessage.SendData(5, -1, -1, null, player.Index, index3, 0, 0, 0, 0, 0);
-                ++index3;
-            }
-            for (int index1 = 0; index1 < NetItem.ArmorSlots; ++index1) {
-                NetMessage.SendData(5, -1, -1, null, player.Index, index3, 0, 0, 0, 0, 0);
-                ++index3;
-            }
-            for (int index1 = 0; index1 < NetItem.DyeSlots; ++index1) {
-                NetMessage.SendData(5, -1, -1, null, player.Index, index3, 0, 0, 0, 0, 0);
-                ++index3;
-            }
-            for (int index1 = 0; index1 < NetItem.MiscEquipSlots; ++index1) {
-                NetMessage.SendData(5, -1, -1, null, player.Index, index3, 0, 0, 0, 0, 0);
-                ++index3;
-            }
-            for (int index1 = 0; index1 < NetItem.MiscDyeSlots; ++index1) {
-                NetMessage.SendData(5, -1, -1, null, player.Index, index3, 0, 0, 0, 0, 0);
-                ++index3;
-            }
+                int index3 = 0;
+                for (int index1 = 0; index1 < NetItem.InventorySlots; ++index1) {
+                    NetMessage.SendData(5, -1, -1, null, player.Index, index3, 0, 0, 0, 0, 0);
+                    ++index3;
+                }
+                for (int index1 = 0; index1 < NetItem.ArmorSlots; ++index1) {
+                    NetMessage.SendData(5, -1, -1, null, player.Index, index3, 0, 0, 0, 0, 0);
+                    ++index3;
+                }
+                for (int index1 = 0; index1 < NetItem.DyeSlots; ++index1) {
+                    NetMessage.SendData(5, -1, -1, null, player.Index, index3, 0, 0, 0, 0, 0);
+                    ++index3;
+                }
+                for (int index1 = 0; index1 < NetItem.MiscEquipSlots; ++index1) {
+                    NetMessage.SendData(5, -1, -1, null, player.Index, index3, 0, 0, 0, 0, 0);
+                    ++index3;
+                }
+                for (int index1 = 0; index1 < NetItem.MiscDyeSlots; ++index1) {
+                    NetMessage.SendData(5, -1, -1, null, player.Index, index3, 0, 0, 0, 0, 0);
+                    ++index3;
+                }
 
-            SetStat(100, player, "hp");
-            SetStat(0, player, "mp");
+                SetStat(100, player, "hp");
+                SetStat(0, player, "mp");
 
-            NetMessage.SendData(5, player.Index, -1, new NetworkText((Main.player[player.Index]).trashItem.Name, NetworkText.Mode.Formattable), player.Index, 179f, ((Main.player[player.Index]).trashItem).prefix, 0.0f, 0, 0, 0);
-            Main.ServerSideCharacter = false;
-            NetMessage.SendData(7, player.Index, -1, null, 0, 0.0f, 0.0f, 0.0f, 0, 0, 0);
-            player.IgnoreSSCPackets = false;
+                NetMessage.SendData(5, player.Index, -1, new NetworkText((Main.player[player.Index]).trashItem.Name, NetworkText.Mode.Formattable), player.Index, 179f, ((Main.player[player.Index]).trashItem).prefix, 0.0f, 0, 0, 0);
+            } else {
+                Main.ServerSideCharacter = true;
+                NetMessage.SendData(7, player.Index, -1, null, 0, 0.0f, 0.0f, 0.0f, 0, 0, 0);
+                player.IgnoreSSCPackets = true;
+
+                for (int index1 = 0; index1 < NetItem.MaxInventory; ++index1) {
+                    if (index1 < NetItem.InventorySlots) {
+                        (player.TPlayer.inventory[index1]).netDefaults(0);
+                    } else if (index1 < NetItem.InventorySlots + NetItem.ArmorSlots) {
+                        int index2 = index1 - NetItem.InventorySlots;
+                        (player.TPlayer.armor[index2]).netDefaults(0);
+                    } else if (index1 < NetItem.InventorySlots + NetItem.ArmorSlots + NetItem.DyeSlots) {
+                        int index2 = index1 - (NetItem.InventorySlots + NetItem.ArmorSlots);
+                        (player.TPlayer.dye[index2]).netDefaults(0);
+                    } else if (index1 < NetItem.InventorySlots + NetItem.ArmorSlots + NetItem.DyeSlots + NetItem.MiscEquipSlots) {
+                        int index2 = index1 - (NetItem.InventorySlots + NetItem.ArmorSlots + NetItem.DyeSlots);
+                        (player.TPlayer.miscEquips[index2]).netDefaults(0);
+                    } else if (index1 < NetItem.InventorySlots + NetItem.ArmorSlots + NetItem.DyeSlots + NetItem.MiscEquipSlots + NetItem.MiscDyeSlots) {
+                        int index2 = index1 - (NetItem.InventorySlots + NetItem.ArmorSlots + NetItem.DyeSlots + NetItem.MiscEquipSlots);
+                        (player.TPlayer.miscDyes[index2]).netDefaults(0);
+                    }
+                }
+                int index3 = 0;
+                for (int index1 = 0; index1 < NetItem.InventorySlots; ++index1) {
+                    NetMessage.SendData(5, -1, -1, null, player.Index, index3, 0, 0, 0, 0, 0);
+                    ++index3;
+                }
+                for (int index1 = 0; index1 < NetItem.ArmorSlots; ++index1) {
+                    NetMessage.SendData(5, -1, -1, null, player.Index, index3, 0, 0, 0, 0, 0);
+                    ++index3;
+                }
+                for (int index1 = 0; index1 < NetItem.DyeSlots; ++index1) {
+                    NetMessage.SendData(5, -1, -1, null, player.Index, index3, 0, 0, 0, 0, 0);
+                    ++index3;
+                }
+                for (int index1 = 0; index1 < NetItem.MiscEquipSlots; ++index1) {
+                    NetMessage.SendData(5, -1, -1, null, player.Index, index3, 0, 0, 0, 0, 0);
+                    ++index3;
+                }
+                for (int index1 = 0; index1 < NetItem.MiscDyeSlots; ++index1) {
+                    NetMessage.SendData(5, -1, -1, null, player.Index, index3, 0, 0, 0, 0, 0);
+                    ++index3;
+                }
+
+                SetStat(100, player, "hp");
+                SetStat(0, player, "mp");
+
+                NetMessage.SendData(5, player.Index, -1, new NetworkText((Main.player[player.Index]).trashItem.Name, NetworkText.Mode.Formattable), player.Index, 179f, ((Main.player[player.Index]).trashItem).prefix, 0.0f, 0, 0, 0);
+
+                Main.ServerSideCharacter = false;
+                NetMessage.SendData(7, player.Index, -1, null, 0, 0.0f, 0.0f, 0.0f, 0, 0, 0);
+                player.IgnoreSSCPackets = false;
+            }
+            
             player.SendMessage("Character Resetted.", Color.Green);
         }
 
