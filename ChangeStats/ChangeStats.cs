@@ -56,7 +56,7 @@ namespace ChangeStats {
             Commands.ChatCommands.Add(new Command("changestats.login", SetLoginHP, "loginhp") { HelpText = "Usage: /loginhp <hp>" });
             Commands.ChatCommands.Add(new Command("changestats.give", GiveHP, "givehp") { HelpText = "Usage: /givehp <player> <hp>" });
             Commands.ChatCommands.Add(new Command("changestats.give", GiveMP, "givemp") { HelpText = "Usage: /givehp <player> <mp>" });
-            Commands.ChatCommands.Add(new Command(ResetCharacter, "resetcharacter", "rc") { HelpText = "Usage: /resetcharacter. WARNING: This is irreversible" });
+            Commands.ChatCommands.Add(new Command("changestats.resetcharacter", ResetCharacter, "resetcharacter", "rc") { HelpText = "Usage: /resetcharacter. WARNING: This is irreversible" });
         }
 
         private void OnPostLogin(PlayerPostLoginEventArgs e) {
