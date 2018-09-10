@@ -51,8 +51,8 @@ namespace ChangeStats {
         }
 
         private void OnInitialize(EventArgs args) {
-            Commands.ChatCommands.Add(new Command("changestats", SetHP, "sethp") { HelpText = "Usage: /sethp <hp>" });
-            Commands.ChatCommands.Add(new Command("changestats", SetMP, "setmp") { HelpText = "Usage: /setmp <mp>" });
+            Commands.ChatCommands.Add(new Command("changestats.set", SetHP, "sethp") { HelpText = "Usage: /sethp <hp>" });
+            Commands.ChatCommands.Add(new Command("changestats.set", SetMP, "setmp") { HelpText = "Usage: /setmp <mp>" });
             Commands.ChatCommands.Add(new Command("changestats.login", SetLoginHP, "loginhp") { HelpText = "Usage: /loginhp <hp>" });
             Commands.ChatCommands.Add(new Command("changestats.give", GiveHP, "givehp") { HelpText = "Usage: /givehp <player> <hp>" });
             Commands.ChatCommands.Add(new Command("changestats.give", GiveMP, "givemp") { HelpText = "Usage: /givehp <player> <mp>" });
